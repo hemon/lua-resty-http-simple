@@ -207,7 +207,11 @@ local function _receive_chunked(sock, maxsize)
 	    if not str then
 		return nil, err
 	    end
-	    insert(chunks, str)
+	    if maxsize and maxsize < 0 then
+	    	-- discard body
+	    else
+	    	insert(chunks, str)
+	    end
 	else
 	    done = true
 	end
